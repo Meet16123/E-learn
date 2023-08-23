@@ -2,14 +2,11 @@ import * as React from 'react';
 import './Login.css';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PasswordIcon from '@mui/icons-material/Password';
-import Divider from '@mui/material/Divider';
-import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 
 const Login = (props) => {
@@ -52,7 +49,12 @@ const Login = (props) => {
             </Box>
           </Grid>
           <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/common/home-logo.jpg" width={210} height={210} />
+            <img
+              src="/common/login-logo.webp"
+              width={250}
+              height={200}
+              alt="Home logo image"
+            />
           </Grid>
         </Grid>
       </CardContent>
