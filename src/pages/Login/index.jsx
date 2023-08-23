@@ -1,15 +1,66 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './Login.css';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import PasswordIcon from '@mui/icons-material/Password';
-import Grid from '@mui/material/Grid';
+import {
+  AccountCircle,
+  Password as PasswordIcon,
+  Close as CloseIcon,
+} from '@mui/icons-material';
+import {
+  FormControl,
+  Grid,
+  Button,
+  TextField,
+  CardContent,
+  Card,
+  Box,
+  FormHelperText,
+  Input,
+  InputLabel,
+  Alert,
+  Collapse,
+  IconButton,
+} from '@mui/material';
 
 const Login = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [open, setOpen] = useState(true);
+
+  function loginHandle() {
+    // API call
+    const payload = {
+      email,
+      password,
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_HOST}/admin/login`, payload)
+      .then((data) => {
+        console.log(data.data);
+        const response = data.data;
+        setOpen(true);
+        setErrorMessage('');
+        setSuccessMessage(response.message);
+      })
+      .catch((err) => {
+        const errorMessage = err.response.data.message;
+        setOpen(true);
+        setSuccessMessage('');
+        setErrorMessage(errorMessage);
+      });
+  }
+
+  function emailHandle(e) {
+    setEmail(e.target.value);
+  }
+
+  function passwordHandle(e) {
+    setPassword(e.target.value);
+  }
+
   return (
     <Card
       sx={{
@@ -29,21 +80,32 @@ const Login = (props) => {
                 <AccountCircle
                   sx={{ color: 'action.active', mr: 1, my: 0.5 }}
                 />
-                <TextField id="email-basic" label="Email" variant="standard" />
+                <FormControl variant="standard" required>
+                  <InputLabel htmlFor="email" label="Email">
+                    Email
+                  </InputLabel>
+                  <Input id="email" name="email" onChange={emailHandle} />
+                </FormControl>
               </Box>
               <br />
               <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <PasswordIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField
-                  id="password-basic"
-                  label="Password"
-                  variant="standard"
-                  type="password"
-                />
+
+                <FormControl variant="standard" required>
+                  <InputLabel htmlFor="password" label="Password">
+                    Password
+                  </InputLabel>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    onChange={passwordHandle}
+                  />
+                </FormControl>
               </Box>
 
               <br />
-              <Button variant="contained" size="large">
+              <Button variant="contained" size="large" onClick={loginHandle}>
                 Login
               </Button>
             </Box>
@@ -58,6 +120,56 @@ const Login = (props) => {
           </Grid>
         </Grid>
       </CardContent>
+      {successMessage ? (
+        <Collapse in={open}>
+          <Alert
+            sx={{ mb: 2 }}
+            severity="success"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  console.log('here123');
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {successMessage}
+          </Alert>
+        </Collapse>
+      ) : (
+        ''
+      )}
+
+      {errorMessage ? (
+        <Collapse in={open}>
+          <Alert
+            sx={{ mb: 2 }}
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {errorMessage}
+          </Alert>
+        </Collapse>
+      ) : (
+        ''
+      )}
     </Card>
   );
 };
