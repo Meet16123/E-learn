@@ -25,17 +25,17 @@ const Login = (props) => {
       }}
     >
       <CardContent>
-        <Grid container spacing={20} justifyContent="center">
+        <Grid container spacing={15} justifyContent="center">
           <Grid item>
             <Box>
-              <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <AccountCircle
                   sx={{ color: 'action.active', mr: 1, my: 0.5 }}
                 />
                 <TextField id="email-basic" label="Email" variant="standard" />
               </Box>
               <br />
-              <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <PasswordIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                 <TextField
                   id="password-basic"
@@ -52,7 +52,7 @@ const Login = (props) => {
             </Box>
           </Grid>
           <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/common/logo.png" width={100} height={100} />
+            <img src="/common/home-logo.jpg" width={210} height={210} />
           </Grid>
         </Grid>
       </CardContent>
