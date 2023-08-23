@@ -1,4 +1,5 @@
 import Login from '../pages/Login/index';
+import Header from '../pages/Header/Header';
 
 export default [
   {
@@ -12,5 +13,11 @@ export default [
     name: 'Login',
     exact: true,
     component: Login,
+  },
+  {
+    path: 'header',
+    name: 'Header',
+    exact: true,
+    component: Header,
   },
 ];
