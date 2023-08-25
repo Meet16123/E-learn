@@ -1,5 +1,6 @@
 import Login from '../pages/Login/index';
 import Header from '../pages/Header/Header';
+import Courses from '../pages/SideBar/Courses';
 
 export default [
   {
@@ -20,4 +21,11 @@ export default [
     exact: true,
     component: Header,
   },
+  {
+    path: 'courses',
+    name: 'Courses',
+    exact: true,
+    component: Courses,
+  }
+
 ];

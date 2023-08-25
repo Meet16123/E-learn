@@ -15,12 +15,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { createTheme } from '@mui/material/styles';
-
-import MailIcon from '@mui/icons-material/Mail';
 import { ThemeProvider } from '@emotion/react';
-import LightModeIcon from '@mui/icons-material/LightMode';      
+import LightModeIcon from '@mui/icons-material/LightMode';     
+import Sidebar from './Sidebar.js';
 
 const drawerWidth = 240;
 
@@ -107,6 +105,10 @@ const Header = () => {
     setOpen(false);
   };
 
+  function handleClick(path) {
+    console.log("Hey" ,path);
+  }
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -142,8 +144,39 @@ const Header = () => {
             </IconButton>
           </DrawerHeader>
           <Divider />
+
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {Sidebar.map((obj, index) => (
+          
+            <ListItem key={obj.name} disablePadding sx={{ display: 'block' }} onClick={() => handleClick(obj?.name)}>
+              <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {obj.logo}
+                    </ListItemIcon>
+
+                    <ListItemText primary={obj.name} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+        ))}
+      </List>
+
+
+
+          {/* <List>
+            {['Courses', 'Schools', 'Students', 'Subjects','Chapter','Material','Video','Notification','Subcription'].map((text, index) => (
               <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
                   sx={{
@@ -165,32 +198,8 @@ const Header = () => {
                 </ListItemButton>
               </ListItem>
             ))}
-          </List>
+          </List> */}
           <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
         </Drawer>
       </Box>
     </ThemeProvider>
