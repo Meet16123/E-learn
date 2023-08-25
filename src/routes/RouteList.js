@@ -15,7 +15,7 @@ export default [
     component: Login,
   },
   {
-    path: 'header',
+    path: 'dashboard',
     name: 'Header',
     exact: true,
     component: Header,

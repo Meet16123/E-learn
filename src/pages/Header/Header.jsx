@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -20,6 +20,9 @@ import { createTheme } from '@mui/material/styles';
 
 import MailIcon from '@mui/icons-material/Mail';
 import { ThemeProvider } from '@emotion/react';
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../../helpers/session';
 
 const drawerWidth = 240;
 
@@ -95,6 +98,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  // If token not found then redirect to login page
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+    }
+  }, []);
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
