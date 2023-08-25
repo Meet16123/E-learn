@@ -69,7 +69,7 @@ const Login = (props) => {
         margin: 'auto',
         padding: '15px',
         marginTop: '10%',
-        background: '#efefef',
+        background: '#9c9c9c',
       }}
     >
       <CardContent>
@@ -78,34 +78,67 @@ const Login = (props) => {
             <Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <AccountCircle
-                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                  sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5,
+                    color: 'white',
+                  }}
                 />
                 <FormControl variant="standard" required>
-                  <InputLabel htmlFor="email" label="Email">
+                  <InputLabel
+                    htmlFor="email"
+                    label="Email"
+                    sx={{ color: 'white' }}
+                  >
                     Email
                   </InputLabel>
-                  <Input id="email" name="email" onChange={emailHandle} />
+                  <Input
+                    className="input"
+                    id="email"
+                    name="email"
+                    onChange={emailHandle}
+                    sx={{ color: 'white' }}
+                  />
                 </FormControl>
               </Box>
               <br />
               <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
-                <PasswordIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                <PasswordIcon
+                  sx={{
+                    color: 'action.active',
+                    mr: 1,
+                    my: 0.5,
+                    color: 'white',
+                  }}
+                />
 
                 <FormControl variant="standard" required>
-                  <InputLabel htmlFor="password" label="Password">
+                  <InputLabel
+                    htmlFor="password"
+                    label="Password"
+                    sx={{ color: 'white' }}
+                  >
                     Password
                   </InputLabel>
                   <Input
+                    className="input"
                     id="password"
                     name="password"
                     type="password"
                     onChange={passwordHandle}
+                    sx={{ color: 'white' }}
                   />
                 </FormControl>
               </Box>
 
               <br />
-              <Button variant="contained" size="large" onClick={loginHandle}>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={loginHandle}
+                sx={{ background: '#747474' }}
+              >
                 Login
               </Button>
             </Box>

@@ -1,0 +1,7 @@
+.CardContent {
+  background-color: white;
+}
+
+.input:focus {
+  color: white !important;
+}
