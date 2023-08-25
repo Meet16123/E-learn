@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import {
@@ -21,13 +21,17 @@ import {
   Collapse,
   IconButton,
 } from '@mui/material';
+import AlertIcon from '../../components/Alert';
+import { NotificationContext } from '../../context/NotificationContext';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const notificationContext = useContext(NotificationContext);
 
   function loginHandle() {
     // API call
@@ -41,15 +45,31 @@ const Login = (props) => {
       .then((data) => {
         console.log(data.data);
         const response = data.data;
-        setOpen(true);
-        setErrorMessage('');
-        setSuccessMessage(response.message);
+        // setOpen(true);
+        // setErrorMessage('');
+        // setSuccessMessage(response.message);
+        try {
+          notificationContext.setNotificationData({
+            severity: 'success',
+            message: response.message,
+          });
+
+          notificationContext.setIsNotificationOpen(true);
+        } catch (error) {
+          console.log('error', error);
+        }
+        console.log('... ', open, '==<', successMessage);
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
-        setOpen(true);
-        setSuccessMessage('');
-        setErrorMessage(errorMessage);
+        notificationContext.setNotificationData({
+          severity: 'error',
+          message: errorMessage,
+        });
+        notificationContext.setIsNotificationOpen(true);
+        // setOpen(true);
+        // setSuccessMessage('');
+        // setErrorMessage(errorMessage);
       });
   }
 
@@ -154,27 +174,12 @@ const Login = (props) => {
         </Grid>
       </CardContent>
       {successMessage ? (
-        <Collapse in={open}>
-          <Alert
-            sx={{ mb: 2 }}
-            severity="success"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  console.log('here123');
-                  setOpen(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            {successMessage}
-          </Alert>
-        </Collapse>
+        <AlertIcon
+          severity="success"
+          isOpen={open}
+          message={successMessage}
+          setIsOpen={setOpen}
+        />
       ) : (
         ''
       )}
