@@ -20,6 +20,7 @@ import { createTheme } from '@mui/material/styles';
 
 import MailIcon from '@mui/icons-material/Mail';
 import { ThemeProvider } from '@emotion/react';
+import LightModeIcon from '@mui/icons-material/LightMode';      
 
 const drawerWidth = 240;
 
@@ -124,6 +125,10 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
+            <IconButton>
+            <LightModeIcon style={{float: 'right'}}></LightModeIcon>
+            </IconButton>
+            
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -193,3 +198,5 @@ const Header = () => {
 };
 
 export default Header;
+
+
