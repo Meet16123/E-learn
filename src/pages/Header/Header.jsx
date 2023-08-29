@@ -100,13 +100,6 @@ const Header = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
 
-  // If token not found then redirect to login page
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate('/login');
-    }
-  }, []);
-
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 

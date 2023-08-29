@@ -26,6 +26,5 @@ export default [
     name: 'Courses',
     exact: true,
     component: Courses,
-  }
-
+  },
 ];
