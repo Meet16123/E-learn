@@ -1,36 +1,27 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './Login.css';
-import {
-  AccountCircle,
-  Password as PasswordIcon,
-  Close as CloseIcon,
-} from '@mui/icons-material';
-import {
-  FormControl,
-  Grid,
-  Button,
-  TextField,
-  CardContent,
-  Card,
-  Box,
-  FormHelperText,
-  Input,
-  InputLabel,
-  Alert,
-  Collapse,
-  IconButton,
-} from '@mui/material';
-import AlertIcon from '../../components/Alert';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import PasswordIcon from '@mui/icons-material/Password';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
 import { NotificationContext } from '../../context/NotificationContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../helpers/session';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
+  const authContext = useContext(AuthContext);
   const notificationContext = useContext(NotificationContext);
 
   function loginHandle() {
@@ -45,22 +36,27 @@ const Login = (props) => {
     
       .post(`${process.env.REACT_APP_SERVER_HOST}/admin/login`, payload)
       .then((data) => {
-        console.log(data.data);
         const response = data.data;
-        // setOpen(true);
-        // setErrorMessage('');
-        // setSuccessMessage(response.message);
-        try {
-          notificationContext.setNotificationData({
-            severity: 'success',
-            message: response.message,
-          });
+        notificationContext.setNotificationData({
+          severity: 'success',
+          message: response.message,
+        });
 
-          notificationContext.setIsNotificationOpen(true);
-        } catch (error) {
-          console.log('error', error);
-        }
-        console.log('... ', open, '==<', successMessage);
+        notificationContext.setIsNotificationOpen(true);
+
+        // set Auth data
+        authContext.setUserdata({
+          token: response.token,
+          userId: response.result.userId,
+          name: response.result.name,
+        });
+
+        // set token in local storage
+        setToken(response.token);
+
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 500);
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
@@ -69,9 +65,6 @@ const Login = (props) => {
           message: errorMessage,
         });
         notificationContext.setIsNotificationOpen(true);
-        // setOpen(true);
-        // setSuccessMessage('');
-        // setErrorMessage(errorMessage);
       });
   }
 
@@ -101,7 +94,6 @@ const Login = (props) => {
               <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <AccountCircle
                   sx={{
-                    color: 'action.active',
                     mr: 1,
                     my: 0.5,
                     color: 'white',
@@ -128,7 +120,6 @@ const Login = (props) => {
               <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
                 <PasswordIcon
                   sx={{
-                    color: 'action.active',
                     mr: 1,
                     my: 0.5,
                     color: 'white',
@@ -175,41 +166,6 @@ const Login = (props) => {
           </Grid>
         </Grid>
       </CardContent>
-      {successMessage ? (
-        <AlertIcon
-          severity="success"
-          isOpen={open}
-          message={successMessage}
-          setIsOpen={setOpen}
-        />
-      ) : (
-        ''
-      )}
-
-      {errorMessage ? (
-        <Collapse in={open}>
-          <Alert
-            sx={{ mb: 2 }}
-            severity="error"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            {errorMessage}
-          </Alert>
-        </Collapse>
-      ) : (
-        ''
-      )}
     </Card>
   );
 };

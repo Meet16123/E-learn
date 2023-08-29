@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -17,7 +17,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import LightModeIcon from '@mui/icons-material/LightMode';     
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../../helpers/session';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import Sidebar from './Sidebar.js';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
@@ -97,6 +100,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  // If token not found then redirect to login page
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+    }
+  }, []);
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -109,7 +122,7 @@ const Header = () => {
   };
 
   function handleClick(path) {
-    console.log("Hey" ,path);
+    console.log('Hey', path);
   }
  
 
@@ -149,16 +162,29 @@ const Header = () => {
           <Divider />
 
           <List>
-        {Sidebar.map((obj, index) => (
-          
-            <ListItem key={obj.name} disablePadding sx={{ display: 'block' }} onClick={() => handleClick(obj?.name)}>
-              <ListItemButton
+            {Sidebar.map((obj, index) => (
+              <ListItem
+                key={obj.name}
+                disablePadding
+                sx={{ display: 'block' }}
+                onClick={() => handleClick(obj?.name)}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
                     sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
                     }}
                   >
+                    {obj.logo}
+                  </ListItemIcon>
 
                     <ListItemIcon
                       sx={{
@@ -183,5 +209,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
