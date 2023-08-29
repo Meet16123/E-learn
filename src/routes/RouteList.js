@@ -1,6 +1,6 @@
 import Login from '../pages/Login/index';
 import Header from '../pages/Header/Header';
-import Courses from '../pages/SideBar/Courses';
+import Courses from '../pages/Courses/Courses';
 
 export default [
   {

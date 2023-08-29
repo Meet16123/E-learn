@@ -19,6 +19,9 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import LightModeIcon from '@mui/icons-material/LightMode';     
 import Sidebar from './Sidebar.js';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -108,6 +111,7 @@ const Header = () => {
   function handleClick(path) {
     console.log("Hey" ,path);
   }
+ 
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -127,10 +131,9 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton>
+            <IconButton >
             <LightModeIcon style={{float: 'right'}}></LightModeIcon>
             </IconButton>
-            
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -172,33 +175,6 @@ const Header = () => {
             </ListItem>
         ))}
       </List>
-
-
-
-          {/* <List>
-            {['Courses', 'Schools', 'Students', 'Subjects','Chapter','Material','Video','Notification','Subcription'].map((text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List> */}
           <Divider />
         </Drawer>
       </Box>

@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../Header/Header';
 
 export default function Courses() {
+    <h1></h1>
   return (
     <>
-        <Header />   
+    <h1>HEy Courses</h1>
     </>
   )
 }
