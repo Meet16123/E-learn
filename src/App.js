@@ -7,9 +7,7 @@ import Header from './pages/Header/Header';
 function App() {
   return (
     <BrowserRouter>
-      <Header>
-        <AllRoutes />
-      </Header>
+      <AllRoutes />
     </BrowserRouter>
   );
 }

@@ -25,7 +25,6 @@ import Sidebar from './Sidebar.js';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-
 const drawerWidth = 240;
 
 const darkTheme = createTheme({
@@ -117,7 +116,6 @@ const Header = () => {
   function handleClick(path) {
     console.log('Hey', path);
   }
- 
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -137,8 +135,8 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton >
-            <LightModeIcon style={{float: 'right'}}></LightModeIcon>
+            <IconButton>
+              <LightModeIcon style={{ float: 'right' }}></LightModeIcon>
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -179,21 +177,14 @@ const Header = () => {
                     {obj.logo}
                   </ListItemIcon>
 
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      {obj.logo}
-                    </ListItemIcon>
-
-                    <ListItemText primary={obj.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-        ))}
-      </List>
+                  <ListItemText
+                    primary={obj.name}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
           <Divider />
         </Drawer>
       </Box>
