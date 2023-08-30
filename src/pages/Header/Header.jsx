@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -17,13 +17,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '../../helpers/session';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import Sidebar from './Sidebar.js';
-import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { sideNavs } from './Sidebar.js';
 
 const drawerWidth = 240;
 
@@ -100,21 +95,12 @@ const Drawer = styled(MuiDrawer, {
 
 const Header = () => {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   function handleClick(path) {
-    console.log('Hey', path);
+    navigate(`/${path}`);
   }
 
   return (
@@ -126,7 +112,7 @@ const Header = () => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={() => setOpen(!open)}
               edge="start"
               sx={{
                 marginRight: 5,
@@ -135,14 +121,11 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton>
-              <LightModeIcon style={{ float: 'right' }}></LightModeIcon>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={() => setOpen(!open)}>
               {theme.direction === 'rtl' ? (
                 <ChevronRightIcon />
               ) : (
@@ -153,7 +136,7 @@ const Header = () => {
           <Divider />
 
           <List>
-            {Sidebar.map((obj, index) => (
+            {sideNavs.map((obj, index) => (
               <ListItem
                 key={obj.name}
                 disablePadding

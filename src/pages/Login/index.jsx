@@ -53,7 +53,7 @@ const Login = (props) => {
         setToken(response.token);
 
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/courses');
         }, 500);
       })
       .catch((err) => {

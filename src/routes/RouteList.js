@@ -1,8 +1,9 @@
 import Login from '../pages/Login/index';
-import Header from '../pages/Header/Header';
-import Courses from '../pages/Courses/Courses';
+import Courses from '../pages/Courses';
+import Dashboard from '../components/dashboard';
+import Schools from '../pages/Schools';
 
-export default [
+export const openRoutes = [
   {
     path: '/',
     name: 'Login',
@@ -15,16 +16,25 @@ export default [
     exact: true,
     component: Login,
   },
+];
+
+export const privateRoutes = [
   {
     path: 'dashboard',
-    name: 'Header',
+    name: 'Dashboard',
     exact: true,
-    component: Header,
+    component: Dashboard,
   },
   {
     path: 'courses',
     name: 'Courses',
     exact: true,
     component: Courses,
+  },
+  {
+    path: 'schools',
+    name: 'Schools',
+    exact: true,
+    component: Schools,
   },
 ];

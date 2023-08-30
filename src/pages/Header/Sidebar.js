@@ -7,40 +7,37 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
-
-export default [
-    {
-        name: 'Courses',
-        logo: (<DashboardIcon />)
-    },
-    {
-        name: 'Schools',
-        logo: (<SchoolIcon />)
-    },
-    {
-        name: 'Students',
-        logo: (<PeopleIcon />),
-    },
-    {
-        name: 'Subjects',
-        logo: (<MenuBookIcon />),
-    },
-    {
-        name: 'Materials',
-        logo: (<PushPinIcon />),
-    },
-    {
-        name: 'Videos',
-        logo: (<OndemandVideoIcon />),
-    },
-    {
-        name: 'Subscriptions',
-        logo: (<SubscriptionsIcon />),
-    },
-    {
-        name: 'Notifications',
-        logo: (<NotificationsActiveIcon />),
-
-    },
-
+export const sideNavs = [
+  {
+    name: 'courses',
+    logo: <DashboardIcon />,
+  },
+  {
+    name: 'schools',
+    logo: <SchoolIcon />,
+  },
+  {
+    name: 'students',
+    logo: <PeopleIcon />,
+  },
+  {
+    name: 'subjects',
+    logo: <MenuBookIcon />,
+  },
+  {
+    name: 'materials',
+    logo: <PushPinIcon />,
+  },
+  {
+    name: 'videos',
+    logo: <OndemandVideoIcon />,
+  },
+  {
+    name: 'subscriptions',
+    logo: <SubscriptionsIcon />,
+  },
+  {
+    name: 'notifications',
+    logo: <NotificationsActiveIcon />,
+  },
 ];
