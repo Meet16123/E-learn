@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import './Login.css';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -15,6 +15,7 @@ import { NotificationContext } from '../../context/NotificationContext';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '../../helpers/session';
+import { isAuthenticated } from '../../helpers/session';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -23,6 +24,12 @@ const Login = (props) => {
 
   const authContext = useContext(AuthContext);
   const notificationContext = useContext(NotificationContext);
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   function loginHandle() {
     // API call
