@@ -1,5 +1,4 @@
-import react from 'react';
-import Header from '../../pages/Header/Header';
+import Header from '../../pages/Sidebar';
 
 const Dashboard = ({ props, children }) => {
   return <Header />;

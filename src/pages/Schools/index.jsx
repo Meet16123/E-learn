@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Header from '../Header/Header';
+import Header from '../Sidebar';
 
 export default function Schools() {
   return (
