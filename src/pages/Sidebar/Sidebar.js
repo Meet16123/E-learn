@@ -6,11 +6,15 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 export const sideNavs = [
   {
-    name: 'courses',
+    name: 'dashboard',
     logo: <DashboardIcon />,
+  },
+  {
+    name: 'courses',
+    logo: <FolderCopyIcon />,
   },
   {
     name: 'schools',

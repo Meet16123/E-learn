@@ -1,5 +1,6 @@
 import React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import styled from '@emotion/styled';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -15,18 +16,22 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { sideNavs } from './Sidebar.js';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import {  LogoutOutlined } from '@mui/icons-material';
+import { createTheme } from '@mui/material';
 
 const drawerWidth = 240;
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: 'light',
+//   },
+// });
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -96,15 +101,30 @@ const Drawer = styled(MuiDrawer, {
 const Header = () => {
   const navigate = useNavigate();
 
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   function handleClick(path) {
     navigate(`/${path}`);
   }
+  const light = {
+    palette: {
+    mode: 'light',
+    },
+  }
+  
+   const dark = {
+    palette: {
+    mode: 'dark',
+    },
+  }
+  const [theme, setTheme] = useState(true);
+
+  const icon = !theme ? <LightModeIcon /> : <ModeNightIcon /> 
+
+const appliedTheme =  createTheme(theme ? light : dark)
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={appliedTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -121,6 +141,18 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
+            <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="mode"
+            sx={{marginLeft: 175}}
+            onClick={() => setTheme(!theme)}
+          >
+            {icon}
+          </IconButton>
+              {/* Log-Out Button */}
+              <LogoutOutlined onClick={() => navigate("/login")} sx={{marginLeft: 5, cursor: "pointer"}} />
+              
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -161,7 +193,7 @@ const Header = () => {
                   </ListItemIcon>
 
                   <ListItemText
-                    primary={obj.name}
+                    primary={obj.name.charAt(0).toUpperCase() + obj.name.slice(1).toLowerCase()}
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -176,3 +208,4 @@ const Header = () => {
 };
 
 export default Header;
+
