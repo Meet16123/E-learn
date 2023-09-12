@@ -21,12 +21,11 @@ import { useNavigate } from 'react-router-dom';
 import { sideNavs } from './Sidebar.js';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
-import {  LogoutOutlined } from '@mui/icons-material';
+import { LogoutOutlined } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 import { deleteSession } from '../../helpers/session.js';
 
 const drawerWidth = 240;
-
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -113,20 +112,20 @@ const Header = () => {
   }
   const light = {
     palette: {
-    mode: 'light',
+      mode: 'light',
     },
-  }
-  
-   const dark = {
+  };
+
+  const dark = {
     palette: {
-    mode: 'dark',
+      mode: 'dark',
     },
-  }
+  };
   const [theme, setTheme] = useState(true);
 
-  const icon = !theme ? <LightModeIcon /> : <ModeNightIcon /> 
+  const icon = !theme ? <LightModeIcon /> : <ModeNightIcon />;
 
-const appliedTheme =  createTheme(theme ? light : dark)
+  const appliedTheme = createTheme(theme ? light : dark);
 
   return (
     <ThemeProvider theme={appliedTheme}>
@@ -198,7 +197,10 @@ const appliedTheme =  createTheme(theme ? light : dark)
                   </ListItemIcon>
 
                   <ListItemText
-                    primary={obj.name.charAt(0).toUpperCase() + obj.name.slice(1).toLowerCase()}
+                    primary={
+                      obj.name.charAt(0).toUpperCase() +
+                      obj.name.slice(1).toLowerCase()
+                    }
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -213,4 +215,3 @@ const appliedTheme =  createTheme(theme ? light : dark)
 };
 
 export default Header;
-

@@ -16,6 +16,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '../../helpers/session';
 import { isAuthenticated } from '../../helpers/session';
+import Api from '../../helpers/ApiHandler';
+import ApiPath from '../../helpers/ApiConstant';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -34,14 +36,18 @@ const Login = (props) => {
   function loginHandle() {
     // API call
     const payload = {
-      email,
-      password,
+      data: {
+        email,
+        password,
+      },
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVER_HOST}/admin/login`, payload)
+    const api = new Api();
+
+    api
+      .post(ApiPath.ADMIN_LOGIN, payload)
       .then((data) => {
-        const response = data.data;
+        const response = data;
         notificationContext.setNotificationData({
           severity: 'success',
           message: response.message,
@@ -64,7 +70,7 @@ const Login = (props) => {
         }, 500);
       })
       .catch((err) => {
-        const errorMessage = err.response.data.message;
+        const errorMessage = err.message;
         notificationContext.setNotificationData({
           severity: 'error',
           message: errorMessage,
