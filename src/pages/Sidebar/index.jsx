@@ -23,6 +23,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import { LogoutOutlined } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
+import { deleteSession } from '../../helpers/session.js';
 
 const drawerWidth = 240;
 
@@ -105,6 +106,10 @@ const Header = () => {
   function handleClick(path) {
     navigate(`/${path}`);
   }
+  function handelLogout() {
+    deleteSession('token');
+    navigate(`/login`);
+  }
   const light = {
     palette: {
       mode: 'light',
@@ -141,19 +146,17 @@ const Header = () => {
               <MenuIcon />
             </IconButton>
             <IconButton
-              edge="end"
-              color="inherit"
-              aria-label="mode"
-              sx={{}}
-              onClick={() => setTheme(!theme)}
-            >
-              {icon}
-            </IconButton>
-            {/* Log-Out Button */}
-            <LogoutOutlined
-              onClick={() => navigate('/login')}
-              sx={{ marginLeft: 5, cursor: 'pointer' }}
-            />
+            edge="end"
+            color="inherit"
+            aria-label="mode"
+            sx={{position: "fixed", top: 10, right: 75, zIndex: 2000}}
+            onClick={() => setTheme(!theme)}
+          >
+            {icon}
+          </IconButton>
+              {/* Log-Out Button */}
+              <LogoutOutlined onClick={() => handelLogout()} sx={{position: "fixed", cursor: "pointer", top: 18, right: 25, zIndex: 2000}} />
+              
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
