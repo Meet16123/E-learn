@@ -108,7 +108,8 @@ const Header = () => {
     navigate(`/${path}`);
   }
   function handelLogout() {
-    deleteSession('token')
+    deleteSession('token');
+    navigate(`/login`);
   }
   const light = {
     palette: {
